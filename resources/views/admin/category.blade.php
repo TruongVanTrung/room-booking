@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <a href="{{ url('/admin/category/add') }}" class="btn btn-danger mb-2"><i
+                            <a href="{{ url('/admin/category/create') }}" class="btn btn-danger mb-2"><i
                                     class="mdi mdi-plus-circle me-2"></i> Add Category</a>
                         </div>
                         <div class="col-sm-8">
@@ -52,8 +52,10 @@
                                         </div>
                                     </th>
                                     <th>id</th>
+                                    <th>Image</th>
                                     <th>Category Name</th>
                                     <th style="width: 75px;">Action</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,14 +70,28 @@
                                         <td class="">
                                             {{ $item->id }}
                                         </td>
+                                        <td>
+                                            <img src="{{ asset('upload/admin/category/' . $item->image) }}"
+                                                alt="contact-img" title="contact-img" class="rounded me-3" height="72"
+                                                width="90">
+                                        </td>
                                         <td class="">
                                             {{ $item->name }}
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" class="action-icon"> <i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="javascript:void(0);" class="action-icon"> <i
-                                                    class="mdi mdi-delete"></i></a>
+                                            <a href="{{ url('/admin/category/' . $item->id . '/edit') }}"
+                                                class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                        </td>
+                                        <td>
+                                            <form action="{{ url('/admin/category/' . $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    style="border:none; background-color: transparent;outline: none;"><a
+                                                        href="" class="action-icon"> <i
+                                                            class="mdi mdi-delete"></i></a></button>
+
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

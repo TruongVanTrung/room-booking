@@ -21,7 +21,8 @@ Route::get('/', function () {
 Route::get('/login/admin', [UserController::class, 'getLoginAdmin']);
 Route::post('/login/admin', [UserController::class, 'postLoginAdmin']);
 Route::prefix('/admin')->middleware('check_admin')->group(function () {
-    Route::get('/category', [CategoryController::class, 'index'])->name('category');
-    Route::get('/category/add', [CategoryController::class, 'create']);
-    Route::post('/category/add', [CategoryController::class, 'store']);
+    //Route::get('/category', [CategoryController::class, 'index'])->name('category');
+    Route::resource('/category', CategoryController::class);
+    // Route::get('/category/add', [CategoryController::class, 'create']);
+    // Route::post('/category/add', [CategoryController::class, 'store']);
 });

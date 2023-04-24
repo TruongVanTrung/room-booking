@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\EditCategoryRequest;
 use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 
@@ -34,26 +36,24 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            [
-                'namedanhmuc' => 'required|string|unique:category|min:7',
-            ],
-            [
-                'namedanhmuc.required' => 'Vui lòng nhập tên đăng nhập',
-                'namedanhmuc.min' => 'Nhập ít nhất 7 ký tự',
-                'namedanhmuc.string' => 'Vui lòng nhập chữ',
-                'namedanhmuc.unique' => 'Danh mục đã tồn tại',
-            ]
-        ]);
-
         $category = new CategoryModel();
+        $image = $request->image;
+        if (!empty($image)) {
+            $category->name = $request->namedanhmuc;
+            $category->image =  $image->getClientOriginalName();
+            if ($category->save()) {
+                if (!is_dir(public_path('/upload/admin/category'))) {
+                    mkdir(public_path('/upload/admin/category'));
+                }
 
-        $category->name = $request->namedanhmuc;
+                if (!empty($image)) {
+                    $image->move('upload/admin/category', $image->getClientOriginalName());
+                }
 
-        if ($category->save()) {
-            return redirect('/admin/category');
+                return redirect('/admin/category');
+            }
         }
     }
 
@@ -63,9 +63,8 @@ class CategoryController extends Controller
      * @param  \App\Models\CategoryModel  $categoryModel
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoryModel $categoryModel)
+    public function show(CategoryModel $categoryModel, string $id)
     {
-        //
     }
 
     /**
@@ -74,9 +73,10 @@ class CategoryController extends Controller
      * @param  \App\Models\CategoryModel  $categoryModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(CategoryModel $categoryModel)
+    public function edit(CategoryModel $categoryModel, string $id)
     {
-        //
+        $data = CategoryModel::find($id);
+        return view('admin.editCategory', ['category' => $data]);
     }
 
     /**
@@ -86,9 +86,27 @@ class CategoryController extends Controller
      * @param  \App\Models\CategoryModel  $categoryModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryModel $categoryModel)
+    public function update(EditCategoryRequest $request, CategoryModel $categoryModel, string $id)
     {
-        //
+        $data = CategoryModel::find($id);
+        $value = $request->all();
+
+        $image = $request->image;
+        if (!empty($image)) {
+            $value['image'] = $image->getClientOriginalName();
+        }
+
+        $data->name = $value['namedanhmuc'];
+        $data->image = $value['image'];
+        if (!is_dir(public_path('/upload/admin/category'))) {
+            mkdir(public_path('/upload/admin/category'));
+        }
+        if ($data->save()) {
+            if (!empty($image)) {
+                $image->move('upload/admin/category', $image->getClientOriginalName());
+            }
+            return redirect('/admin/category');
+        }
     }
 
     /**
