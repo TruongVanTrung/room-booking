@@ -115,8 +115,10 @@ class CategoryController extends Controller
      * @param  \App\Models\CategoryModel  $categoryModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryModel $categoryModel)
+    public function destroy(CategoryModel $categoryModel, string $id)
     {
-        //
+        if (CategoryModel::destroy($id)) {
+            return redirect('/admin/category');
+        }
     }
 }

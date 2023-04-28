@@ -48,9 +48,16 @@
             <li class="side-nav-title side-nav-item">Apps</li>
 
             <li class="side-nav-item">
-                <a href="apps-calendar.html" class="side-nav-link">
+                <a href="{{ url('/admin/category') }}" class="side-nav-link">
                     {{-- <i class="uil-calender"></i> --}}
                     <span> Category </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{{ url('/admin/profile') }}" class="side-nav-link">
+                    {{-- <i class="uil-calender"></i> --}}
+                    <span> Profile </span>
                 </a>
             </li>
         </ul>
