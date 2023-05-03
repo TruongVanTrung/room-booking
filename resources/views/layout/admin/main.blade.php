@@ -96,6 +96,7 @@
     <!-- demo app -->
     <script src="{{ asset('assets/js/pages/demo.customers.js') }}"></script>
     <!-- end demo js-->
+    @yield('end_js')
 
 </body>
 

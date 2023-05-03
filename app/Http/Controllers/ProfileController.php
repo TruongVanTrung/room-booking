@@ -63,7 +63,7 @@ class ProfileController extends Controller
         $user->password = $data['password'];
         $user->avatar = $data['avatar'];
 
-        if ($user->update($data)) {
+        if ($user->save()) {
             if (!empty($img)) {
                 $img->move('upload/admin/avatar', $img->getClientOriginalName());
             }

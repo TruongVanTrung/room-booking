@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Member\HomeController;
+use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,15 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    //return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/login', [MemberController::class, 'viewLogin']);
+Route::get('/register', [MemberController::class, 'viewRegister']);
+Route::post('/login', [MemberController::class, 'postLogin']);
+Route::post('/register', [MemberController::class, 'postRegister']);
+
 Route::get('/login/admin', [UserController::class, 'getLoginAdmin']);
 Route::post('/login/admin', [UserController::class, 'postLoginAdmin']);
 Route::prefix('/admin')->middleware('check_admin')->group(function () {
     //Route::get('/category', [CategoryController::class, 'index'])->name('category');
     Route::resource('/category', CategoryController::class);
     Route::resource('/profile', ProfileController::class);
+    Route::resource('/blog', BlogController::class);
     // Route::get('/category/add', [CategoryController::class, 'create']);
     // Route::post('/category/add', [CategoryController::class, 'store']);
 });

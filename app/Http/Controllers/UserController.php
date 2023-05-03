@@ -25,7 +25,7 @@ class UserController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'level' => 1], $remember)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('/admin/category');
         } else {
             return redirect('/login/admin');
         }
