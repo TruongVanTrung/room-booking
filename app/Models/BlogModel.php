@@ -13,4 +13,9 @@ class BlogModel extends Model
 
     protected $guarded = [];
     public $timestamps = true;
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user');
+    }
 }

@@ -1,53 +1,58 @@
-<header>
-    <div class="container">
-        <nav class="navbar navbar-expand-xl navbar-light  ">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="col-xl-9">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link navbar-brand" href="menu.html">
-                                    <img src="{{ asset('assets/clients/img/logo_tb3.png') }}" style="width: 60px">
-                                    <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item item">
-                                <a class="nav-link " style="color: #FFFFFF;;" href="gioithieu1.html">Giới thiệu</a>
-                            </li>
-                            <li class="nav-item item">
-                                <a class="nav-link " style="color: #FFFFFF;;" href="menu.html">Đặt phòng</a>
-                            </li>
-                            <li class="nav-item item">
-                                <a class="nav-link " style="color: #FFFFFF;;" href="#">Địa điểm nổi tiếng</a>
-                            </li>
-                            <li class="nav-item item">
-                                <a class="nav-link  " style="color: #FFFFFF;" href="uudai.html">Ưu đãi hôm nay</a>
-                            </li>
-                            <li class="nav-item item">
-                                <a class="nav-link  " style="color: #FFFFFF;" href="lienhe.html">Hỗ trợ</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-                <a class="navbar-brand" href="#"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+<header class="header_area">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container box_1620">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <div class="col-xl-3">
-                    <div class="btn1">
-                        <a href="{{ url('/login') }}"><button class="btn btn-outline-light" data-target="#mymodel"
-                                data-toggle="modal">Đăng
-                                nhập</button></a>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav justify-content-center">
+                        <li class="nav-item active"><a class="nav-link" href="index.html">TRANG CHỦ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="category.html">ƯU ĐÃI</a>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">ĐỊA ĐIỂM NỔI BẬT</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">BLOG</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="blog-details.html">ALL</a></li>
+                            </ul>
+                        </li>
 
-                        <a href="{{ url('/register') }}"><button class="btn btn-outline-light" data-target="#mymodel2"
-                                data-toggle="modal">Đăng
-                                Ký</button></a>
-                    </div>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">LIÊN HỆ</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right navbar-social" style="display:inline; width:20%;">
+                        @if (Auth::user())
+                            <li class="nav-item submenu dropdown">
+                                <a style="font-size: 15px" href="#" class="nav-link dropdown-toggle"
+                                    data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    @if (Auth::user()->email)
+                                        {{ Auth::user()->email }}
+                                    @endif
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <form action="{{ url('/logout') }}" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <button type="submit" name="logout" class="btn ">
+                                                Check Out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @else
+                            <li style="float: left"><a href="{{ url('/login') }}">Đăng nhập</a></li>
+                            <li style="float:right"><a href="{{ url('/register') }}">Đăng kí</a></li>
+                        @endif
+                    </ul>
                 </div>
             </div>
-
         </nav>
     </div>
 </header>

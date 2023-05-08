@@ -1,6 +1,7 @@
 @extends('layout.member.main')
 @section('filenamecss')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/clients/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 @endsection
 @section('main')
     <div class="container-fluid ctn">
@@ -89,7 +90,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header1">
-                    <h1>Tìm theo kiếm nhu cầu</h1>
+                    <h2>Tìm theo kiếm nhu cầu</h2>
                     <p>Khám phá thêm nhà cho thuê du lịch</p>
                 </div>
                 <div class="row">
@@ -115,7 +116,7 @@
     </div>
     <div class="container ctn3">
         <div class="header">
-            <h1>Ưu đãi hôm nay</h1>
+            <h2>Ưu đãi hôm nay</h2>
             <p>Nhanh tay kẻo lỡ</p>
         </div>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -165,7 +166,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="header">
-                    <h1>Điểm đến phổ biến hiện nay</h1>
+                    <h2>Điểm đến phổ biến hiện nay</h2>
                     <p>Hãy khám phá những nơi bạn nên đến</p>
                 </div>
                 <div class="row">

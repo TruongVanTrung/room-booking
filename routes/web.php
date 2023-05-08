@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\member\BlogMemberController;
 use App\Http\Controllers\Member\HomeController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,10 @@ Route::get('/login', [MemberController::class, 'viewLogin']);
 Route::get('/register', [MemberController::class, 'viewRegister']);
 Route::post('/login', [MemberController::class, 'postLogin']);
 Route::post('/register', [MemberController::class, 'postRegister']);
+Route::post('/logout', [MemberController::class, 'logout']);
+Route::get('/blog', [BlogMemberController::class, 'index']);
+Route::get('/blog/{id}', [BlogMemberController::class, 'show']);
+
 
 Route::get('/login/admin', [UserController::class, 'getLoginAdmin']);
 Route::post('/login/admin', [UserController::class, 'postLoginAdmin']);
