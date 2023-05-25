@@ -21,6 +21,7 @@
     @yield('filenamecss')
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.6.1/js/fontawesome.min.js">
+    @yield('js')
 </head>
 
 <body>

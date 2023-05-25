@@ -17,7 +17,11 @@ class ProfileController extends Controller
     public function index()
     {
         $data = Auth::user();
-        return view('admin.profile', ['user' => $data]);
+        if (Auth::user()->level == 1) {
+            return view('admin.profile', ['user' => $data]);
+        } else {
+            return view('member.profile', ['user' => $data]);
+        }
     }
 
     /**
@@ -65,9 +69,14 @@ class ProfileController extends Controller
 
         if ($user->save()) {
             if (!empty($img)) {
-                $img->move('upload/admin/avatar', $img->getClientOriginalName());
+                if (Auth::user()->level == 1) {
+                    $img->move('upload/admin/avatar', $img->getClientOriginalName());
+                    return redirect('/admin/profile');
+                } else {
+                    $img->move('upload/member/avatar', $img->getClientOriginalName());
+                    return redirect('/profile');
+                }
             }
-            return redirect('/admin/profile');
         }
     }
 

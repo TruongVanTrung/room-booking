@@ -5,7 +5,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\member\BlogMemberController;
 use App\Http\Controllers\Member\HomeController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +31,19 @@ Route::post('/register', [MemberController::class, 'postRegister']);
 Route::post('/logout', [MemberController::class, 'logout']);
 Route::get('/blog', [BlogMemberController::class, 'index']);
 Route::get('/blog/{id}', [BlogMemberController::class, 'show']);
-
+Route::get('/register/partner', [PartnerController::class, 'index']);
+Route::post('/register/partner', [PartnerController::class, 'create']);
 
 Route::get('/login/admin', [UserController::class, 'getLoginAdmin']);
 Route::post('/login/admin', [UserController::class, 'postLoginAdmin']);
+Route::resource('/profile', ProfileController::class);
+
+Route::prefix('/partner')->middleware('check_partner')->group(function () {
+    Route::resource('/room', RoomController::class);
+});
+
+
+
 Route::prefix('/admin')->middleware('check_admin')->group(function () {
     //Route::get('/category', [CategoryController::class, 'index'])->name('category');
     Route::resource('/category', CategoryController::class);

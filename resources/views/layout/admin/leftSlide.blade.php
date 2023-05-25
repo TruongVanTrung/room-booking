@@ -47,19 +47,30 @@
 
             <li class="side-nav-title side-nav-item">Apps</li>
 
-            <li class="side-nav-item">
-                <a href="{{ url('/admin/category') }}" class="side-nav-link">
-                    {{-- <i class="uil-calender"></i> --}}
-                    <span> Category </span>
-                </a>
-            </li>
+            @if (Auth::user()->level == 1)
+                <li class="side-nav-item">
+                    <a href="{{ url('/admin/category') }}" class="side-nav-link">
+                        {{-- <i class="uil-calender"></i> --}}
+                        <span> Category </span>
+                    </a>
+                </li>
 
-            <li class="side-nav-item">
-                <a href="{{ url('/admin/profile') }}" class="side-nav-link">
-                    {{-- <i class="uil-calender"></i> --}}
-                    <span> Profile </span>
-                </a>
-            </li>
+                <li class="side-nav-item">
+                    <a href="{{ url('/admin/profile') }}" class="side-nav-link">
+                        {{-- <i class="uil-calender"></i> --}}
+                        <span> Profile </span>
+                    </a>
+                </li>
+            @else
+                <li class="side-nav-item">
+                    <a href="{{ url('/partner/room') }}" class="side-nav-link">
+                        {{-- <i class="uil-calender"></i> --}}
+                        <span> Room </span>
+                    </a>
+                </li>
+            @endif
+
+
         </ul>
 
         <!-- Help Box -->

@@ -35,8 +35,25 @@
                                         {{ Auth::user()->email }}
                                     @endif
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
+                                <ul class="dropdown-menu" style="padding:9px;">
+                                    @if (Auth::user()->level == 3)
+                                        <li class="nav-item" style="margin-bottom: 10px;"><a
+                                                href="{{ url('/partner') }}">Quản lý đối
+                                                tác</a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item" style="margin-bottom: 10px;"><a
+                                                href="{{ url('/register/partner') }}">Đăng ký đối
+                                                tác</a></li>
+                                    @endif
+
+                                    <li class="nav-item" style="margin-bottom: 10px;"><a href="">Hỗ trợ</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-bottom: 10px;"><a
+                                            href="{{ url('/profile') }}">Thông tin cá
+                                            nhân</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-left: -15px;">
                                         <form action="{{ url('/logout') }}" method="POST">
                                             @csrf
                                             @method('POST')
@@ -44,6 +61,7 @@
                                                 Check Out</button>
                                         </form>
                                     </li>
+
                                 </ul>
                             </li>
                         @else
