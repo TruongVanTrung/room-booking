@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\PartnerModel;
+use App\Models\PaymentModel;
+use App\Models\RoomModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +80,7 @@ class MemberController extends Controller
         if ($user->save()) {
             return redirect('/login');
         } else {
-            return redirect('/register');
+            return redirect()->back();
         }
     }
 
@@ -88,5 +91,16 @@ class MemberController extends Controller
         $request->session()->invalidate();
 
         return redirect('/');
+    }
+
+    public function historyOrder()
+    {
+        $order = PaymentModel::where('id_user', Auth::user()->id)->get();
+        foreach ($order as $key => $item) {
+            $room = RoomModel::where('id', $item->id_room)->first();
+            $order[$key]['room_name'] = $room->name;
+        }
+        //dd($order);
+        return view('member.historyOrder', ['order' => $order]);
     }
 }

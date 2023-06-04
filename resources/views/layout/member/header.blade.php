@@ -13,9 +13,9 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav justify-content-center">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">TRANG CHỦ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="category.html">ƯU ĐÃI</a>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">ĐỊA ĐIỂM NỔI BẬT</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/">TRANG CHỦ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">ƯU ĐÃI</a>
+                        <li class="nav-item"><a class="nav-link" href="">ĐỊA ĐIỂM NỔI BẬT</a></li>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">BLOG</a>
@@ -38,7 +38,7 @@
                                 <ul class="dropdown-menu" style="padding:9px;">
                                     @if (Auth::user()->level == 3)
                                         <li class="nav-item" style="margin-bottom: 10px;"><a
-                                                href="{{ url('/partner') }}">Quản lý đối
+                                                href="{{ url('/partner/room') }}">Quản lý đối
                                                 tác</a>
                                         </li>
                                     @else
@@ -52,6 +52,9 @@
                                     <li class="nav-item" style="margin-bottom: 10px;"><a
                                             href="{{ url('/profile') }}">Thông tin cá
                                             nhân</a>
+                                    </li>
+                                    <li class="nav-item" style="margin-bottom: 10px;"><a
+                                            href="{{ url('/order/history') }}">Đơn hàng</a>
                                     </li>
                                     <li class="nav-item" style="margin-left: -15px;">
                                         <form action="{{ url('/logout') }}" method="POST">

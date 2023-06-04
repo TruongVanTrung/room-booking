@@ -73,7 +73,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action=" {{ url('/admin/room') }}" method="POST" enctype="multipart/form-data">
+                    <form action=" {{ url('/partner/room') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <tfoot>

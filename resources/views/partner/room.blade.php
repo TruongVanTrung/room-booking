@@ -3,27 +3,33 @@
 @section('title')
     Room
 @endsection
-
+@section('css')
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/clients/css/lightslider.css') }}">
+@endsection
 @section('js')
+    {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    {{-- <script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
         $(document).ready(function() {
-            $('#image').change(function() {
-                //console.log(this.files.length);
-                console.log(this.files[0].name);
-                for (var i = 0; i < $(this)[0].files.length; i++) {
-                    $(".img_avatar").attr("src", window.URL
-                        .createObjectURL(this.files[i]));
-                    // $("#frames").append('<img style="margin-left: 10px; margin-top:10px" src="' + window.URL
-                    //     .createObjectURL(this.files[i]) +
-                    //     '" width="100px" height="100px"/>');
+            $('.image-gallery').lightSlider({
+                gallery: true,
+                item: 1,
+                thumbItem: 9,
+                slideMargin: 0,
+                speed: 500,
+                auto: true,
+                loop: true,
+                onSliderLoad: function() {
+                    $('.image-gallery').removeClass('cS-hidden');
                 }
             });
         });
-    </script> --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    </script>
 @endsection
-@section('css')
+@section('slider')
 @endsection
 @section('main')
     <div class="row">
@@ -38,208 +44,208 @@
                 </div>
 
                 <h4 class="page-title">Room</h4>
+                <a href="{{ url('partner/room/create') }}"><button class="btn btn-outline-primary">Create Room</button></a>
             </div>
         </div>
     </div>
     <!-- end page title -->
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <form action=" {{ url('/admin/room') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <tfoot>
-                                <tr>
-                                    <td><span class="label-input100 font-weight-bold">Nhập ảnh phòng</span></td>
-                                    <td style="width:30%"><input type="file" name="image_room">
-                                        @error('image_room')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                    <td><span class="label-input100 font-weight-bold">Thuộc danh mục</span></td>
-                                    <td><select class="form-select" aria-label="Default select example" name="id_danhmuc"
-                                            id="" style="width: 90%; height: 100%">
-                                            @foreach ($category as $item)
-                                                <option value="{{ $item->id }}">{{ $item->tendanhmuc }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_danhmuc')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label-input100 font-weight-bold">Nhập tên phòng</span></td>
-                                    <td><input type="text" name="room_name" class="form-control"
-                                            value="{{ old('room_name') }}">
-                                        @error('room_name')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
+    <div class="container-fluid">
 
-                                    <td><span class="label-input100 font-weight-bold">Số lượng phòng</span></td>
-                                    <td><input type="number" name="number_room" class="form-control"
-                                            value="{{ old('number_room') }}">
-                                        @error('number_room')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+
+            <div class="card-header py-3">
+                <h3 class="m-0 font-weight-bold text-primary">Danh sách phòng</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width: 36px;">Stt</th>
+                                <th style="width: 150px;">Ảnh Phòng</th>
+                                <th>Tên phòng</th>
+                                <th>Số lượng</th>
+                                <th>Số người</th>
+                                <th>Giá</th>
+                                <th>Số giường</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach ($room as $item)
                                 <tr>
-                                    <td><span class="label-input100 font-weight-bold">Nhập số người</span></td>
-                                    <td><input type="number" name="number_people" class="form-control"
-                                            value="{{ old('number_parent') }}">
-                                        @error('number_people')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                    <td><span class="label-input100 font-weight-bold">Giá tiền</span></td>
-                                    <td><input type="number" name="number_price" class="form-control"
-                                            value="{{ old('number_price') }}">
-                                        @error('number_price')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label-input100 font-weight-bold">Nhập ghi chú</span></td>
+                                    <td>{{ $i++ }}</td>
+
                                     <td>
-                                        <textarea name="note" rows="5" cols="90">Nhập ghi chú!</textarea>
-                                        @error('note')
-                                            <span style="color: red;">{{ $message }}</span>
-                                        @enderror
+                                        <div style="width:320px;">
+                                            <ul class="image-gallery" class="gallery list-unstyled cS-hidden">
+                                                @foreach (json_decode($item->image) as $value)
+                                                    <li data-thumb="{{ asset('upload/room/3_' . $value) }}"
+                                                        data-src="{{ asset('assets/clients/img/controls.png') }}">
+                                                        <img src="{{ asset('upload/room/3_' . $value) }}" />
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </td>
-                                    <td><span class="label-input100 font-weight-bold"> Số giường</span></td>
-                                    <td><input type="number" name="number_giuong" class="form-control">
-                                        <select class="form-select" name="loai_giuong" id="">
-                                            <option value="Đơn">Đơn</option>
-                                            <option value="Đôi">Đôi</option>
-                                        </select>
-                                        @error('number_giuong')
-                                            <p style="color: red;margin-top: 15px">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                </tr>
-                                <tr>
+
+                                    <td>{{ $item->name }}</td>
                                     <td>
-                                        <span class="label-input100 font-weight-bold">Tiện ích</span>
+                                        {{ $item->quantity }}
                                     </td>
-                                    <td colspan="3">
-                                        <div class="container">
-                                            <div style="margin-top: 20px;margin-bottom: 20px; ">
-                                                <div class="row label-input100">
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Bồn tắm">
-                                                        Bồn tắm
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Vòi tắm đứng">
-                                                        Vòi tắm đứng
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Máy lạnh"> Máy lạnh
-                                                    </div>
+                                    <td>
+                                        {{ $item->peoples }}
+                                    </td>
+                                    <td>
+                                        {{ $item->price }}
+                                    </td>
+                                    <td>
+                                        {{ $item->giuong }}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                                            data-target="{{ '#myModal' . $item->id }}">Xem chi tiết</button>
 
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Bộ vệ sinh cá nhân">
-                                                        Bộ vệ sinh cá nhân
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="{{ 'myModal' . $item->id }}" role="dialog">
+                                            <div class="modal-dialog modal-xl">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title font-weight-bold text-primary">Thông tin chi
+                                                            tiết phòng</h4>
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered" id="dataTable" width="100%"
+                                                            cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style=""><span
+                                                                            class="label-input100 font-weight-bold">View:</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span
+                                                                            class="label-input100">{{ $item->view }}</span>
+                                                                    </td>
+                                                                    <td style=""><span
+                                                                            class="label-input100 font-weight-bold">Thuộc
+                                                                            danh
+                                                                            mục:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100">{{ $item['namecategory'] }}</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><span class="label-input100 font-weight-bold">Tên
+                                                                            phòng:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100"><b>{{ $item->name }}</b></span>
+                                                                    </td>
+
+                                                                    <td><span class="label-input100 font-weight-bold">Số
+                                                                            lượng
+                                                                            phòng:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100">{{ $item->quantity }}</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><span class="label-input100 font-weight-bold">Số
+                                                                            người:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100">{{ $item->peoples }}</span>
+                                                                    </td>
+                                                                    <td><span class="label-input100 font-weight-bold">Giá
+                                                                            tiền:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100">{{ $item->price }}</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><span class="label-input100 font-weight-bold">Ghi
+                                                                            chú:</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span
+                                                                            class="label-input100">{!! $item->note !!}</span>
+                                                                    </td>
+                                                                    <td><span class="label-input100 font-weight-bold"> Số
+                                                                            giường:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100">{{ $item->giuong }}</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><span class="label-input100 font-weight-bold">Tiện
+                                                                            ích:</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        @foreach (json_decode($item->tienich) as $v)
+                                                                            <span class="label-input100"> -
+                                                                                {{ $v }} </span>
+                                                                        @endforeach
+
+                                                                    </td>
+                                                                    <td><span class="label-input100 font-weight-bold"> Các
+                                                                            tầng:</span>
+                                                                    </td>
+                                                                    <td><span
+                                                                            class="label-input100">{{ $item->floor }}</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="row">
+                                                            <div class="col-3"></div>
+                                                            <div class="col-3"><a
+                                                                    href="{{ url('/partner/room/' . $item->id . '/edit') }}"><button
+                                                                        type="submit"
+                                                                        class="btn btn-primary btn-block">Sửa</button>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-3"><button type="submit"
+                                                                    class="btn btn-danger btn-block">Xóa</button>
+                                                            </div>
+                                                            <div class="col-3"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row label-input100" style="padding-top: 15px; padding-left:5px">
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Chậu rửa vệ sinh">
-                                                        Chậu rửa vệ sinh
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Khăn tắm">
-                                                        Khăn tắm
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Tivi"> Tivi
-                                                    </div>
 
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Dép">
-                                                        Dép
-                                                    </div>
-                                                </div>
-                                                <div class="row label-input100"
-                                                    style="padding-top: 15px; padding-left:5px">
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Máy sấy tóc">
-                                                        Máy sấy tóc
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Ấm đun nước điện">
-                                                        Ấm đun nước điện
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]"
-                                                            value="Tủ hoặc phòng để quần áo"> Tủ hoặc phòng để quần áo
-                                                    </div>
-
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Giá treo áo quần">
-                                                        Giá treo áo quần
-                                                    </div>
-                                                </div>
-                                                <div class="row label-input100"
-                                                    style="padding-top: 15px; padding-left:5px">
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Két sắt an toàn">
-                                                        Két sắt an toàn
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Bàn làm việc">
-                                                        Bàn làm việc
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]"
-                                                            value="Nước đóng chai miễn phí"> Nước đóng chai miễn phí
-                                                    </div>
-
-                                                    <div class="col-3">
-                                                        <input type="checkbox" name="tienich[]" value="Ban công">
-                                                        Ban công
-                                                    </div>
-                                                </div>
-                                                @error('tienich')
-                                                    <span style="color: red;">{{ $message }}</span>
-                                                @enderror
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            </tfoot>
-                        </table>
-                        <div class="container-login100-form-btn">
-                            <div class="wrap-login100-form-btnn">
-                                <div class="login100-form-bgbtn"></div>
-                                <button class="login100-form-btn">
-                                    Thêm
-                                </button>
-                            </div>
-                        </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endsection
 
-                    </form>
-                </div> <!-- end card-body-->
-            </div> <!-- end card-->
-        </div> <!-- end col -->
-    </div>
-@endsection
-
-@section('end_js')
-    <script>
-        CKEDITOR.replace('content', {
-            filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
-            filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
-            filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
-            filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
-            filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
-            filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
-        });
-    </script>
-    //
-@endsection
+        @section('end_js')
+            <script>
+                CKEDITOR.replace('content', {
+                    filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
+                    filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
+                    filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
+                    filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+                    filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+                    filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+                });
+            </script>
+        @endsection

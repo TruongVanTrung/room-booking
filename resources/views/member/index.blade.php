@@ -162,7 +162,59 @@
             </a>
         </div>
     </div>
-    <div class="container ctn4">
+    <div class="container ctn5" style="margin-top: 50px">
+        <div class="header">
+            <h2>Gợi ý dành cho bạn</h2>
+            <p>Nơi lưu trú nỗi bật</p>
+        </div>
+        <div class="row">
+            @php
+                $i = 0;
+            @endphp
+            @foreach ($partner as $item)
+                @php
+                    $i++;
+                @endphp
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-img">
+                            <a href="detail/{{ $item['id'] }}">
+                                <img src="{{ asset('/upload/room/3_' . $item->image) }}" alt="">
+                                <div class="price">
+                                    <p class="panerr">No.{{ $i }}</p>
+                                </div>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="feature-details">
+                                    <h5>{!! $item->name !!}</h5>
+                                    <p
+                                        style="word-break: break-word;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        display: -webkit-box;
+                                        line-height: 24px; /* fallback */
+                                        max-height: 72px; /* fallback */
+                                        -webkit-line-clamp: 3; /* number of lines to show */
+                                        -webkit-box-orient: vertical;">
+                                        {{ $item->note }}</p>
+                                    <div class="fa1">
+                                        <span><i class="fa fa-map-marker"></i> {{ $item->address }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+    </div>
+    <div class="container ctn4" style="margin-top: 50px">
         <div class="row">
             <div class="col-xl-12">
                 <div class="header">

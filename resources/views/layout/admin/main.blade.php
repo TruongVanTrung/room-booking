@@ -21,6 +21,8 @@
     <link href="{{ asset('assets/css/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="dark-style">
     @yield('css')
     @yield('js')
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 
 </head>
 
@@ -56,9 +58,9 @@
             </div> <!-- content -->
 
             <!-- Footer Start -->
-            <footer class="footer">
+            {{-- <footer class="footer">
                 @include('layout.admin.footer')
-            </footer>
+            </footer> --}}
             <!-- end Footer -->
 
         </div>
@@ -86,6 +88,7 @@
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
 
     <!-- third party js -->
+    <script src="{{ asset('assets/clients/js/lightslider.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/dataTables.responsive.min.js') }}"></script>
@@ -95,8 +98,12 @@
 
     <!-- demo app -->
     <script src="{{ asset('assets/js/pages/demo.customers.js') }}"></script>
+
     <!-- end demo js-->
     @yield('end_js')
+
+    @yield('slider')
+
 
 </body>
 

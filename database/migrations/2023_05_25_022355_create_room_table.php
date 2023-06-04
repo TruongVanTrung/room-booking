@@ -15,6 +15,20 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
+            $table->string('image', 1000);
+            $table->string('name');
+            $table->integer('quantity');
+            $table->integer('price');
+            $table->integer('peoples');
+            $table->string('giuong');
+            $table->string('tienich', 1000);
+            $table->string('note', 1000);
+            $table->string('view');
+            $table->string('floor');
+            $table->foreignId('id_partner')->constrained('partner')
+                ->cascadeOnUpdate();
+            $table->foreignId('id_category')->constrained('category')
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

@@ -63,9 +63,21 @@
                 </li>
             @else
                 <li class="side-nav-item">
+                    <a href="{{ url('/partner/profile') }}" class="side-nav-link">
+                        {{-- <i class="uil-calender"></i> --}}
+                        <span> Partner Profile </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
                     <a href="{{ url('/partner/room') }}" class="side-nav-link">
                         {{-- <i class="uil-calender"></i> --}}
                         <span> Room </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
+                    <a href="{{ url('/partner/order') }}" class="side-nav-link">
+                        {{-- <i class="uil-calender"></i> --}}
+                        <span> Order </span>
                     </a>
                 </li>
             @endif
