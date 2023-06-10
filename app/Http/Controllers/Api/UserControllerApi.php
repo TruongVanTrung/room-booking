@@ -15,7 +15,6 @@ class UserControllerApi extends Controller
                 'id' => Auth::id(),
                 'message' => "Đăng nhập thành công"
             ];
-
             return response()->json($response, 200);
         } else {
             $response = [

@@ -13,13 +13,15 @@ class HomeController extends Controller
     public function index()
     {
         $category = CategoryModel::orderBy('id', 'asc')->limit(4)->get();
-        $partner = PartnerModel::orderBy('id', 'desc')
+        $partner = PartnerModel::orderBy('id', 'asc')
             ->limit(3)
             ->get();
         foreach ($partner as $key => $item) {
-            $img = RoomModel::where('id_partner', $item->id)->first()->image;
-            if ($img) {
-                $partner[$key]["image"] = json_decode($img)[0];
+            $room = RoomModel::where('id_partner', $item->id)->first();
+            if (isset($room)) {
+                $partner[$key]["image"] = json_decode($room->image)[0];
+            } else {
+                $partner[$key]["image"] = "";
             }
         }
         //dd($partner);
