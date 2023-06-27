@@ -139,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-                    <h5 style="margin-top: 30px">Tiên nghi của {{ $partner->name }}</h5>
+                    <h5 style="margin-top: 30px;color:blue">Tiên nghi của {{ $partner->name }}</h5>
                     <div class="container">
                         <div class="row">
                             @foreach (json_decode($partner->utilities, true) as $item)

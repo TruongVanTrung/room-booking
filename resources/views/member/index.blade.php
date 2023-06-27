@@ -15,60 +15,25 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="booking-form">
-                                        <form>
+                                        <form action="{{ url('/search') }}" method="POST">
+                                            @csrf
                                             <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Bạn muốn đi đâu?">
+                                                <input class="form-control" type="text" name="address"
+                                                    placeholder="Bạn muốn đi đâu?">
                                                 <span class="form-label">Điểm đến</span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input class="form-control" type="date" required>
+                                                        <input class="form-control" type="date" name="check_in" required>
                                                         <span class="form-label">Ngày đến</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input class="form-control" type="date" required>
+                                                        <input class="form-control" type="date" name="check_out"
+                                                            required>
                                                         <span class="form-label">Ngày đi</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <select class="form-control" required>
-                                                            <option value="" selected hidden>Số phòng</option>
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                        </select>
-                                                        <span class="select-arrow"></span>
-                                                        <span class="form-label">Phòng</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <select class="form-control" required>
-                                                            <option value="" selected hidden>Số người lớn</option>
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                        </select>
-                                                        <span class="select-arrow"></span>
-                                                        <span class="form-label">Người lớn</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <select class="form-control" required>
-                                                            <option value="" selected hidden>Số trẻ em</option>
-                                                            <option>0</option>
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                        </select>
-                                                        <span class="select-arrow"></span>
-                                                        <span class="form-label">Trẻ em</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,7 +62,7 @@
                     <div class="card-group ">
                         @foreach ($category as $item)
                             <div class="col-md-3 ">
-                                <a href="{{ url('/admin/category/' . $item->id) }}" class="card1">
+                                <a href="{{ url('category/' . $item->id) }}" class="card1">
                                     <div class="card ">
                                         <img class="card-img-top" src="{{ asset('upload/admin/category/' . $item->image) }}"
                                             alt="Card image">

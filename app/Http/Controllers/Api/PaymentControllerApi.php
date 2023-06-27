@@ -17,6 +17,7 @@ class PaymentControllerApi extends Controller
 {
     public function payment(Request $request)
     {
+
         $pr_date = date('Y-m-d', strtotime($request->dateTra . ' -1 day'));
         $period = CarbonPeriod::create($request->dateNhan, $pr_date);
         $room = RoomModel::where('id', $request->idroom)->first();
@@ -130,5 +131,30 @@ class PaymentControllerApi extends Controller
             'total_quantity' => (int)$total_qty,
             'total_price' => (int)$totalPrice->totalPrice
         ], 200);
+    }
+
+    public function delete($id)
+    {
+        $order1 = PaymentModel::find($id);
+        $order = PaymentModel::find($id);
+        $order->status = 4;
+
+        if ($order->save()) {
+            $pr_date = date('Y-m-d', strtotime(((int)$order->check_out)) . ' -1 day');
+            $period = CarbonPeriod::create(date('Y-m-d', ((int)$order->check_in)), $pr_date);
+            foreach ($period as $date) {
+                $check_count = CheckCountRoom::where(['id_room' => $order->idroom, 'date' => $date->format('Y-m-d')])->first();
+                if ($check_count) {
+                    $new_count = $check_count->count - $order->quantity;
+                    $checkcount = CheckCountRoom::find($check_count->id);
+                    $checkcount->count = $new_count;
+                    $checkcount->save();
+                }
+            }
+            return response()->json([
+                'id' => 1,
+                'message' => "Hủy thành công"
+            ], 200);
+        }
     }
 }

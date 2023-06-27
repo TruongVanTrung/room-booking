@@ -27,4 +27,19 @@ class HomeController extends Controller
         //dd($partner);
         return view('member.index', ['category' => $category, 'partner' => $partner]);
     }
+
+    public function category($id)
+    {
+        $category = CategoryModel::find($id);
+        $partner = PartnerModel::where('id_category', $id)->get();
+        foreach ($partner as $key => $item) {
+            $room = RoomModel::where('id_partner', $item->id)->first();
+            if (isset($room)) {
+                $partner[$key]["image"] = json_decode($room->image)[0];
+            } else {
+                $partner[$key]["image"] = "";
+            }
+        }
+        return view('member.categoryDetail', ['category' => $category, 'partner' => $partner]);
+    }
 }

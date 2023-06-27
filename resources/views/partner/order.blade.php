@@ -147,23 +147,28 @@
                                     </td>
                                     <td style="color:#042f66">
                                         @if ($item->status == 0)
-                                            <a href="">
-                                                <button type="button" class="btn btn-primary" style="margin-left: 10px;">
+                                            <form action="{{ url('/partner/order/' . $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                {{-- <input type="hidden" name="id" value=""> --}}
+                                                <p style="color: red;text-align:center">Đơn mới đặt</p>
+                                                <button type="submit" class="btn btn-primary" style="margin-left: 10px;">
                                                     Xác nhận
                                                 </button>
-                                            </a>
+                                            </form>
                                         @elseif ($item->status == 1)
-                                            <a href="">
-                                                <button type="button" class="btn btn-primary" style="margin-left: 10px;">
-                                                    Đã nhận
+                                            <form action="{{ url('/partner/order/' . $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <p style="color: red;text-align:center">Đơn đã xác nhận</p>
+                                                <button type="submit" class="btn btn-primary" style="margin-left: 10px;">
+                                                    Nhận phòng
                                                 </button>
-                                            </a>
+                                            </form>
+                                        @elseif($item->status == 4)
+                                            <p style="color: red;text-align:center">Đã hủy</p>
                                         @else
-                                            <a href="">
-                                                <button type="button" class="btn btn-primary" style="margin-left: 10px;">
-                                                    Hoàn thành
-                                                </button>
-                                            </a>
+                                            <p style="color: red;text-align:center">Đơn hoàn thành</p>
                                         @endif
 
                                     </td>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CategoryControlleApi;
 use App\Http\Controllers\Api\PartnerControllerApi;
 use App\Http\Controllers\Api\PaymentControllerApi;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\UserControllerApi;
 use App\Http\Controllers\Member\PaymentController;
 use Illuminate\Http\Request;
@@ -29,5 +30,7 @@ Route::get('/partner/{id}', [PartnerControllerApi::class, 'detail']);
 Route::post('/payment', [PaymentControllerApi::class, 'payment']);
 Route::get('/payment/detail/{id}/{status}', [PaymentControllerApi::class, 'detail']);
 Route::get('/payment/total/{id}', [PaymentControllerApi::class, 'totalUser']);
+//Route::get('/payment/delete/{id}', [PaymentControllerApi::class, 'delete']);
 Route::get('/category/{id}', [CategoryControlleApi::class, 'show']);
+Route::post('/search', [SearchController::class, 'search']);
 // Route::get('/partner/room/{id}', [PartnerControllerApi::class, 'imagePartner']);

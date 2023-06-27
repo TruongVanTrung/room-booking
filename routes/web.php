@@ -7,6 +7,7 @@ use App\Http\Controllers\Member\HomeController;
 use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\Member\PartnerMemberController;
 use App\Http\Controllers\Member\PaymentController;
+use App\Http\Controllers\Member\SearchController;
 use App\Http\Controllers\OrderPartnerController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
@@ -47,12 +48,17 @@ Route::get('/payment/{id}/{count}', [PaymentController::class, 'index']);
 Route::post('/payment', [PaymentController::class, 'payment']);
 Route::get('/order/history', [MemberController::class, 'historyOrder']);
 
+Route::get('/search', [SearchController::class, 'index']);
+Route::post('/search', [SearchController::class, 'search']);
+Route::get('/category/{id}', [HomeController::class, 'category']);
+
 Route::prefix('/partner')->middleware('check_partner')->group(function () {
     Route::resource('/room', RoomController::class);
     Route::get('/profile', [PartnerController::class, 'view']);
     Route::get('/profile/{id}/edit', [PartnerController::class, 'edit']);
     Route::put('/profile/{id}', [PartnerController::class, 'update']);
     Route::get('/order', [OrderPartnerController::class, 'view']);
+    Route::put('/order/{id}', [OrderPartnerController::class, 'updateStatus']);
 });
 
 

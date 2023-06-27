@@ -21,4 +21,15 @@ class OrderPartnerController extends Controller
         //dd($order);
         return view('partner.order', ['order' => $order]);
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        //dd($id);
+        $order = PaymentModel::find($id);
+        $status = (int)$order->status + 1;
+        $order->status = $status;
+        if ($order->save()) {
+            return redirect()->back();
+        }
+    }
 }

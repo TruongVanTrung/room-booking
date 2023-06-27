@@ -275,7 +275,7 @@ td {
 .footer {
   margin-top: 60px;
   padding: 40px 15px;
-  background-image: linear-gradient(#A9A9F5, #5882FA);
+  background-color: #F0F0F0;
 }
 
 .form-container {
